@@ -9,7 +9,7 @@ class Login extends Component {
     return(
       <View style= {styles.containerStyle}>
         <FacebookButton
-        onPress={() => console.log('Ashley Hates me')} />
+        onPress={() => this.props.navigate('Home')} />
       </View>
     )
   }

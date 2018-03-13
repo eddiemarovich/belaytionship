@@ -1,6 +1,7 @@
 import React, {Component, } from 'react'
 import { View, } from 'react-native'
 import * as firebase from 'firebase'
+import RouterComponent from '../RouterComponent'
 import  { Home, Login } from './views/index.js'
 
 
@@ -14,7 +15,7 @@ firebase.initializeApp(firebaseConfig)
 class App extends Component {
   render () {
     return (
-        <Home />
+        <RouterComponent />
     )
   }
 }
