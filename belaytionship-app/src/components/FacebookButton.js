@@ -1,5 +1,6 @@
 import {Font} from 'expo'
 import React, {Component} from 'react'
+import { Actions } from 'react-native-router-flux'
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native'
 import {FontAwesome} from '@expo/vector-icons'
 
@@ -16,7 +17,7 @@ class FacebookButton extends Component {
 
   render() {
     return (
-      <TouchableOpacity style={styles.buttonStyle}>
+      <TouchableOpacity style={styles.buttonStyle} onPress= {() => Actions.home()}>
         <View style={styles.buttonContainer}>
           <FontAwesome name= {'facebook-f'} size={20} color= {'white'}/>
           {this.state.fontLoaded ? (<Text style={styles.textStyle}>Login with Facebook</Text>) : null}

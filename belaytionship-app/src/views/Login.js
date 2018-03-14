@@ -1,15 +1,15 @@
 import React, {Component, } from 'react'
-import { StackNavigator } from 'react-navigation'
 import { View, StyleSheet } from 'react-native'
+import { Actions }  from 'react-native-router-flux'
 import { FacebookButton } from '../components'
-import LoginRouter from '../index.js'
 
 class Login extends Component {
   render() {
     return(
-      <View style= {styles.containerStyle}>
+      <View style={styles.containerStyle}>
         <FacebookButton
-        onPress={() => this.props.navigate('Home')} />
+          // onPress={() => Actions.home()}
+        />
       </View>
     )
   }
