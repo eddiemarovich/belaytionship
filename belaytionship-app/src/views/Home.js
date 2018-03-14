@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {View, Text} from 'react-native'
+import { Background } from '../components'
 import * as firebase from 'firebase'
 
 import { Card } from '../components/'
@@ -30,10 +31,10 @@ class Home extends Component {
     const {profileIndex} = this.state
     return (
       <View style={{flex:1}}>
+        <Background />
         {this.state.profiles.slice(profileIndex, profileIndex + 3).reverse().map((profile) => {
           return (
             <View>
-              {/* <Card /> */}
               <Card
                 key={profile.id}
                 profile={profile}

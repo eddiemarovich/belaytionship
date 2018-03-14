@@ -18,7 +18,7 @@ class Card extends Component {
           const absDx = Math.abs(dx)
           const direction = absDx/dx
 
-          if (absDx > 200){
+          if (absDx > 160){
             Animated.decay(this.pan, {
               velocity: {x: 3 * direction, y: 0},
               deceleration: 0.995,
