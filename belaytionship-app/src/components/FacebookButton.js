@@ -5,6 +5,9 @@ import {View, TouchableOpacity, Text, StyleSheet} from 'react-native'
 import {FontAwesome} from '@expo/vector-icons'
 
 class FacebookButton extends Component {
+  constructor(props){
+    super(props)
+  }
   state = {
     fontLoaded: false
   }
@@ -17,7 +20,7 @@ class FacebookButton extends Component {
 
   render() {
     return (
-      <TouchableOpacity style={styles.buttonStyle} onPress= {() => Actions.home()}>
+      <TouchableOpacity style={styles.buttonStyle} onPress= {this.props.login}>
         <View style={styles.buttonContainer}>
           <FontAwesome name= {'facebook-f'} size={20} color= {'white'}/>
           {this.state.fontLoaded ? (<Text style={styles.textStyle}>Login with Facebook</Text>) : null}

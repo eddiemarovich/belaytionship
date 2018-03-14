@@ -1,4 +1,4 @@
-import Exponent from 'expo'
+import Expo from 'expo'
 import React, {Component} from 'react'
 import {Font} from 'expo'
 import { View, StyleSheet, Text } from 'react-native'
@@ -19,21 +19,22 @@ class Login extends Component {
   login = async() => {
     const ADD_ID = '553125241723031'
     const options = {
-      permissions: ['public_prfile']
+      permissions: ['public_profile']
     }
-    const { type, token } = await Exponent.Facebook.logInWithPermissionsAsync(ADD_ID, options)
+    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(ADD_ID, options)
     if (type === 'success') {
-      const response = fetch(`https://graph.facebook.com/me?access_token=${token}`)
+      const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`)
       console.log(await response.json())
     }
   }
+
 
   render() {
     return(
       <View  style={styles.containerStyle}>
         <Background/>
         {this.state.fontLoaded ? (<Text style={styles.titleStyle}>Belaytionship</Text>) : null}
-        <FacebookButton />
+        <FacebookButton login= {this.login}/>
       </View>
     )
   }
