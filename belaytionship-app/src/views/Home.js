@@ -1,9 +1,10 @@
+import Expo from 'expo'
 import React, {Component} from 'react'
 import {View, Text} from 'react-native'
-import { Background } from '../components'
+import { Profile, } from './'
+import { Background, Scroll, Card, } from '../components'
 import * as firebase from 'firebase'
 
-import { Card } from '../components/'
 
 class Home extends Component {
 
@@ -23,27 +24,40 @@ class Home extends Component {
     })
   }
 
+
+
   nextCard = () => {
     this.setState({profileIndex: this.state.profileIndex + 1})
   }
 
-  render() {
+  cardStack = () => {
     const {profileIndex} = this.state
+
     return (
       <View style={{flex:1}}>
-        <Background />
-        {this.state.profiles.slice(profileIndex, profileIndex + 3).reverse().map((profile) => {
+        {this.state.profiles.slice(profileIndex, profileIndex + 3).reverse().map((e) => {
           return (
-            <View>
               <Card
-                key={profile.id}
-                profile={profile}
+                key={e.id}
+                profile={e}
                 onSwipeOff={this.nextCard}
               />
-            </View>
           )
         })}
       </View>
+    )
+  }
+
+
+  render() {
+    return (
+      <Scroll
+      screens= {[
+        <Profile />,
+        this.cardStack(),
+
+      ]}
+    />
     )
   }
 }

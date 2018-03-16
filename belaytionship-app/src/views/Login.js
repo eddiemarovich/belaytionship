@@ -2,18 +2,20 @@ import Expo from 'expo'
 import firebase from 'firebase'
 import React, {Component} from 'react'
 import {Font} from 'expo'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, ActivityIndicator } from 'react-native'
 import { Actions }  from 'react-native-router-flux'
 import { FacebookButton, Background } from '../components'
 
 
 class Login extends Component {
   state = {
-    fontLoaded: false
+    fontLoaded: false,
+    showSpinner: true,
   }
 
 
   async componentDidMount() {
+      // await firebase.auth().signOut()
     await firebase.auth().onAuthStateChanged(user => {
       if (user) {
         Actions.home()
@@ -31,7 +33,7 @@ class Login extends Component {
   }
 
   createUser = (uid, userData) => {
-    firebase.database().ref('users').child(uid).update(userData)
+    firebase.database().ref('users').child(uid).update(uid, ...userData)
   }
 
   login = async() => {
@@ -56,6 +58,7 @@ class Login extends Component {
         <Background/>
         {this.state.fontLoaded ? (<Text style={styles.titleStyle}>Belaytionship</Text>) : null}
         <FacebookButton login= {this.login}/>
+
       </View>
     )
   }
