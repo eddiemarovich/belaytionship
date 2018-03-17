@@ -1,7 +1,7 @@
 import Expo from 'expo'
 import firebase from 'firebase'
 import React, {Component} from 'react'
-import {Font} from 'expo'
+import { Font } from 'expo'
 import { View, StyleSheet, Text, ActivityIndicator } from 'react-native'
 import { Actions }  from 'react-native-router-flux'
 import { FacebookButton, Background } from '../components'
@@ -15,14 +15,28 @@ class Login extends Component {
 
 
   async componentDidMount() {
-      // await firebase.auth().signOut()
-    await firebase.auth().onAuthStateChanged(user => {
-      if (user) {
+    // await firebase.auth().signOut()
+    await firebase.auth().onAuthStateChanged(auth => {
+      if (auth) {
+        console.log(auth)
+        this.firebaseRef = firebase.database().ref('users')
+        this.firebaseRef.child(auth.uid).on('value', snap => {
+          const user = snap.val()
+          if (user != null){
+            this.firebaseRef.child(auth.uid).off('value')
+            this.goHome(user)
+          }
+        })
         Actions.home()
       }
     })
     await Expo.Font.loadAsync({'Pacifico-Regular': require('../../assets/fonts/Pacifico-Regular.ttf')})
     this.setState({fontLoaded: true})
+  }
+
+  goHome(user){
+    const resetAction = Actions.home({type: 'reset', params: {user}})
+    this.props.resetAction
   }
 
 
@@ -47,6 +61,7 @@ class Login extends Component {
       const response = await fetch(`https://graph.facebook.com/me?fields=${fields.toString()}&access_token=${token}`)
       const userData = await response.json()
       const { uid } = await this.authenticate(token)
+      console.log(uid);
       this.createUser(uid, userData)
     }
   }
@@ -57,7 +72,7 @@ class Login extends Component {
       <View  style={styles.containerStyle}>
         <Background/>
         {this.state.fontLoaded ? (<Text style={styles.titleStyle}>Belaytionship</Text>) : null}
-        <FacebookButton login= {this.login}/>
+        <FacebookButton  onPress={() => this.props.navigation.navigate('Home')}/>
 
       </View>
     )
@@ -79,8 +94,10 @@ const styles = StyleSheet.create({
     fontSize: 56,
     fontFamily: 'Pacifico-Regular',
     transform: [{ rotate: '355 deg'}],
-    marginBottom: 40
-
+    marginBottom: 40,
+    textShadowColor: 'black',
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: .5
   }
 })
 

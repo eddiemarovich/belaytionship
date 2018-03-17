@@ -4,7 +4,7 @@ import { ProfileNavbar } from '../components/navbars'
 import { Background } from '../components/'
 
 
-class Profile extends Component {
+class Matches extends Component {
   constructor(props){
     super(props)
   }
@@ -13,23 +13,23 @@ class Profile extends Component {
     return (
       <View style= {styles.profileContainer}>
         <Background />
-        <Text style= {styles.profileTitleStyle}>Your Profile</Text>
+        <Text style= {styles.matchesStyle}>Matches</Text>
       </View>
     )
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   profileContainer: {
-    // flex: 1,
     backgroundColor: '#41B6FF',
     alignItems: 'center',
     height: 120,
     backgroundColor:'#3087BD',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20
+
   },
-  profileTitleStyle: {
+  matchesStyle: {
     color: 'white',
     fontSize: 56,
     fontFamily: 'Pacifico-Regular',
@@ -39,6 +39,6 @@ const styles = {
     textShadowOffset: {width: 2, height: 2},
     textShadowRadius: .5
   }
-}
+})
 
-export { Profile }
+export { Matches }
