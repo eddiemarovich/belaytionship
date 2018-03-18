@@ -9,6 +9,7 @@ import * as firebase from 'firebase'
 
 class Home extends Component {
 
+
   state = {
     profileIndex: 0,
     profiles: [],
@@ -27,9 +28,13 @@ class Home extends Component {
   }
 
 
-
   nextCard = () => {
     this.setState({profileIndex: this.state.profileIndex + 1})
+    if (swipedRight){
+
+    }else{
+      
+    }
   }
 
   cardStack = () => {
@@ -67,8 +72,9 @@ class Home extends Component {
       <Scroll
 
       screens= {[
+        <Profile signOut= {this.logout} signedInUser= {this.props.user}/>,
         this.cardStack(),
-        <Profile />,
+
         <Matches />
 
       ]}

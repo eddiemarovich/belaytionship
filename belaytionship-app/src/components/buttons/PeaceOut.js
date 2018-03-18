@@ -1,3 +1,4 @@
+import firebase from 'firebase'
 import React, { Component } from 'react'
 import { View, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import { Actions } from 'react-native-router-flux'
@@ -7,7 +8,7 @@ import { Actions } from 'react-native-router-flux'
 class PeaceOut extends Component {
   render() {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity  onPress= {() => firebase.auth().signOut()}>
         <View>
           <Image style= {styles.peaceOutStyle} source= {require('../../../assets/images/peace-out.png')} />
         </View>

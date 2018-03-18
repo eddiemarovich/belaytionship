@@ -8,36 +8,44 @@ import { FacebookButton, Background } from '../components'
 
 
 class Login extends Component {
-  state = {
-    fontLoaded: false,
-    showSpinner: true,
+  constructor(props){
+    super(props)
+    this.state = {
+      fontLoaded: false,
+      showSpinner: true,
+      user: {}
+    }
+    this.goHome = this.goHome.bind(this)
   }
+
 
 
   async componentDidMount() {
     // await firebase.auth().signOut()
+    let signedInUser = {}
     await firebase.auth().onAuthStateChanged(auth => {
       if (auth) {
-        console.log(auth)
         this.firebaseRef = firebase.database().ref('users')
         this.firebaseRef.child(auth.uid).on('value', snap => {
           const user = snap.val()
+          signedInUser = user
           if (user != null){
             this.firebaseRef.child(auth.uid).off('value')
-            this.goHome(user)
+            this.goHome(signedInUser)
           }
         })
-        Actions.home()
       }
     })
     await Expo.Font.loadAsync({'Pacifico-Regular': require('../../assets/fonts/Pacifico-Regular.ttf')})
     this.setState({fontLoaded: true})
   }
 
+
   goHome(user){
-    const resetAction = Actions.home({type: 'reset', params: {user}})
+    const resetAction = Actions.home({user: user})
     this.props.resetAction
   }
+
 
 
   authenticate = (token) => {
@@ -57,7 +65,7 @@ class Login extends Component {
     }
     const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(ADD_ID, options)
     if (type === 'success') {
-      const fields = ['id', 'first_name', 'last_name', 'picture' ]
+      const fields = ['id', 'first_name', 'last_name', 'bio', 'picture', 'bio' ]
       const response = await fetch(`https://graph.facebook.com/me?fields=${fields.toString()}&access_token=${token}`)
       const userData = await response.json()
       const { uid } = await this.authenticate(token)
@@ -72,7 +80,7 @@ class Login extends Component {
       <View  style={styles.containerStyle}>
         <Background/>
         {this.state.fontLoaded ? (<Text style={styles.titleStyle}>Belaytionship</Text>) : null}
-        <FacebookButton  onPress={() => this.props.navigation.navigate('Home')}/>
+        <FacebookButton login= {this.login}/>
 
       </View>
     )
@@ -94,7 +102,7 @@ const styles = StyleSheet.create({
     fontSize: 56,
     fontFamily: 'Pacifico-Regular',
     transform: [{ rotate: '355 deg'}],
-    marginBottom: 40,
+    marginBottom: 20,
     textShadowColor: 'black',
     textShadowOffset: {width: 2, height: 2},
     textShadowRadius: .5
