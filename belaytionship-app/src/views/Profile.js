@@ -1,8 +1,7 @@
 import React, { Component, } from 'react'
-import { View, StyleSheet, Text, Image } from 'react-native'
-import { ProfileNavbar } from '../components/navbars'
+import { View, StyleSheet, Text, Image, TextInput, Button } from 'react-native'
 import { Background } from '../components/'
-import { PeaceOut } from '../components/buttons'
+import { SubmitButton } from '../components/buttons'
 import firebase from 'firebase'
 
 
@@ -11,13 +10,13 @@ class Profile extends Component {
     super(props)
     this.state= {
       user: {},
-      matches: []
+      textInput: ''
     }
   }
 
   componentWillMount(){
     this.setState({user: this.props.signedInUser, matches: this.props.matches}, () => {
-      // console.log(this.state)
+      console.log(this.state)
     })
   }
 
@@ -33,9 +32,19 @@ class Profile extends Component {
         <View style = {styles.profileContainer}>
           <Text style = {styles.nameStyle}>{this.state.user.first_name}</Text>
           <Image source={{uri: userFbPic}} style= {styles.pictureStyle} />
-          <View>
+          <View style= {{alignItems: 'center'}}>
+            <TextInput
+              style= {styles.textInput}
+              editable= {true}
+              placeholder= 'Personal beta...'
+              placeholderTextColor= '#808080'
+              multiline= {true}
+              maxLength= {40}
+              onChangeText= {(text) => {this.setState({textInput: text})}}
+            />
 
           </View>
+          <SubmitButton style= {{marginTop: 55}} />
         </View>
       </View>
     )
@@ -45,12 +54,24 @@ class Profile extends Component {
 const styles = {
   viewContainer: {
     flex: 1,
-    backgroundColor: '#41B6FF',
     alignItems: 'center',
     height: 120,
     backgroundColor:'#3087BD',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20
+  },
+  textInput: {
+    color: 'black',
+    marginTop: 20,
+    height: 120,
+    width: 300,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    fontFamily: 'Comfortaa-Regular',
+    fontSize: 28,
+    flexWrap: 'wrap',
   },
   profileTitleStyle: {
     color: 'white',
@@ -63,22 +84,22 @@ const styles = {
     textShadowRadius: .5
   },
   pictureStyle: {
-    borderRadius: 60,
-    height: 150,
-    width: 150,
+    borderRadius: 55,
+    height: 110,
+    width: 110,
     borderWidth: 2,
-    borderColor: 'white'
+    borderColor: 'white',
+    marginTop: 10,
   },
   profileContainer: {
     alignItems: 'center',
-    marginTop: 40
+    marginTop: 25
   },
   nameStyle: {
     color: 'white',
     fontSize: 36,
     fontFamily: 'Comfortaa-Regular',
     fontWeight: 'bold',
-    marginBottom: 10,
   }
 }
 

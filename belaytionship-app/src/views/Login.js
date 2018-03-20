@@ -55,7 +55,7 @@ class Login extends Component {
   }
 
   createUser = (uid, userData) => {
-    firebase.database().ref('users').child(uid).update(uid, ...userData)
+    firebase.database().ref('users').child(uid).update(uid, userData)
   }
 
   login = async() => {

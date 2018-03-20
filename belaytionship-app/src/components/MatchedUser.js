@@ -35,24 +35,33 @@ class MatchedUser extends Component {
 
 const styles = StyleSheet.create({
   pictureStyle: {
-    borderRadius: 20,
-    height: 75,
-    width: 75,
+    marginLeft: 15,
+    borderRadius: 35,
+    height: 68,
+    width: 68,
     borderWidth: 2,
     borderColor: 'white'
   },
   nameStyle: {
     color: 'white',
+    marginLeft: 5,
     fontFamily: 'Comfortaa-Regular',
     fontSize: 32
   },
   userInfo: {
+    backgroundColor: '#3087BD',
+    borderRadius: 40,
+    borderColor: 'white',
+    borderWidth: 2,
+    height: 75,
+    width: 350,
     flexDirection: 'row',
-    marginTop: 6,
+    marginTop: 15,
     alignItems: 'center',
     justifyContent: 'flex-start'
   },
   emailStyle: {
+    marginLeft: 5,
     color: 'white',
     fontSize: 18,
     fontFamily: 'Comfortaa-Regular',
