@@ -69,7 +69,6 @@ class Login extends Component {
       const response = await fetch(`https://graph.facebook.com/me?fields=${fields.toString()}&access_token=${token}`)
       const userData = await response.json()
       const { uid } = await this.authenticate(token)
-      console.log(uid);
       this.createUser(uid, userData)
     }
   }

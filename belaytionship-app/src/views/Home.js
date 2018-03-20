@@ -6,6 +6,8 @@ import { Background, Scroll, Card, } from '../components'
 import { CardStackNavbar } from '../components/navbars'
 import * as firebase from 'firebase'
 
+const likedUsers = []
+const matchedUsers = []
 
 class Home extends Component {
 
@@ -13,10 +15,14 @@ class Home extends Component {
   state = {
     profileIndex: 0,
     profiles: [],
-    // user: this.props.Actions.state.params.user
+    user: this.props.user,
+    likedUsers: [],
+    matchedUsers: []
   }
 
+
   componentWillMount() {
+    const {uid} = this.state.user
     firebase.database().ref().child('users').once('value', (snap) => {
       let profiles = []
       snap.forEach((profile) => {
@@ -25,15 +31,42 @@ class Home extends Component {
       })
       this.setState({profiles})
     })
+    console.log(this.state.profiles)
   }
 
+  getUser = () => {
+    return firebase.database().ref('users').child(uid).once('value')
+  }
 
-  nextCard = () => {
+  relate = (userUid, profileUid, status) => {
+    let relationUpdate = {}
+    relationUpdate[`${userUid}/liked/${profileUid}`] = status
+    relationUpdate[`${profileUid}/likedBack/${userUid}`] = status
+    firebase.database().ref('relationships').update(relationUpdate)
+
+  }
+
+  getName = async (id) => {
+    let response = await fetch (`https://graph.facebook.com/${id}?&access_token=553125241723031|cekDbkq9I_zrD1unFrgLYiV8A0I`)
+    let data = await response.json()
+    let name = data.name.toString()
+    matchedUsers.push(name)
+    this.setState({matchedUsers})
+    return name
+  }
+
+  nextCard = (swipedRight, profileUid) => {
+
+    const userUid = this.props.user.uid
     this.setState({profileIndex: this.state.profileIndex + 1})
     if (swipedRight){
+      this.relate(userUid, profileUid, true)
+      likedUsers.push(profileUid)
+      this.setState({likedUsers})
+      this.getName(profileUid)
 
     }else{
-      
+      this.relate(userUid, profileUid, false)
     }
   }
 
@@ -72,10 +105,10 @@ class Home extends Component {
       <Scroll
 
       screens= {[
-        <Profile signOut= {this.logout} signedInUser= {this.props.user}/>,
+        <Profile  signOut= {this.logout} signedInUser= {this.props.user}/>,
         this.cardStack(),
 
-        <Matches />
+        <Matches matchedUsers= {this.state.matchedUsers} profiles= {this.state.profiles} matches= {this.state.likedUsers}/>
 
       ]}
     />

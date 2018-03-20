@@ -10,13 +10,14 @@ class Profile extends Component {
   constructor(props){
     super(props)
     this.state= {
-      user: {}
+      user: {},
+      matches: []
     }
   }
 
   componentWillMount(){
-    this.setState({user: this.props.signedInUser}, () => {
-      console.log(this.state)
+    this.setState({user: this.props.signedInUser, matches: this.props.matches}, () => {
+      // console.log(this.state)
     })
   }
 
