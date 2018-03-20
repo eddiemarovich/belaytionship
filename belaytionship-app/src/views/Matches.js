@@ -1,12 +1,9 @@
 import React, { Component, } from 'react'
 import { View, StyleSheet, Text, Image } from 'react-native'
-import { ProfileNavbar } from '../components/navbars'
-import { Background } from '../components/'
+import { Background, MatchedUser } from '../components/'
 import firebase from 'firebase'
 
-let name
-let email
-const matches = []
+
 
 class Matches extends Component {
   constructor(props){
@@ -20,41 +17,11 @@ class Matches extends Component {
   getEmail = async (id) => {
     let response = await fetch (`https://graph.facebook.com/${id}?fields=email&access_token=553125241723031|cekDbkq9I_zrD1unFrgLYiV8A0I`)
     let data = await response.json()
+    console.log(data);
   }
 
-
-
-
-
-
-
-  displayMatches = () => {
-
-    return (
-
-      <View >
-        {this.props.matches.map(e => {
-
-          let id = e.toString()
-          return (
-            <View style= {styles.userInfo} key= {e}>
-            <Image
-              style= {styles.pictureStyle}
-              source= {{uri: `https://graph.facebook.com/${id}/picture?height=500`}}
-               />
-              <View style= {{flexDirection: 'column'}}>
-                <Text style= {styles.nameStyle}>{this.props.matchedUsers[this.props.matchedUsers.length - 1]}</Text>
-                <Text style= {styles.emailStyle}>Email</Text>
-              </View>
-            </View>
-          )
-        })}
-      </View>
-    )
-  }
 
   render () {
-    console.log(this.props.matchedUsers)
     return (
       <View style= {styles.profileContainer}>
         <Background />
@@ -81,7 +48,7 @@ class Matches extends Component {
               <Text style= {styles.emailStyle}>jacknadiak@aol.com</Text>
             </View>
           </View>
-          {this.displayMatches()}
+          <MatchedUser matchedUser= {this.props.matchedUser} likedUsers= {this.props.likedUsers}/>
         </View>
       </View>
     )
@@ -108,26 +75,35 @@ const styles = StyleSheet.create({
     textShadowRadius: .5
   },
   pictureStyle: {
-    borderRadius: 20,
-    height: 75,
-    width: 75,
+    marginLeft: 15,
+    borderRadius: 30,
+    height: 68,
+    width: 68,
     borderWidth: 2,
     borderColor: 'white'
   },
   nameStyle: {
     color: 'white',
+    marginLeft: 5,
     fontFamily: 'Comfortaa-Regular',
     fontSize: 32
   },
   userInfo: {
+    backgroundColor: '#3087BD',
+    borderRadius: 40,
+    borderColor: 'white',
+    borderWidth: 2,
+    height: 75,
+    width: 350,
     flexDirection: 'row',
-    marginTop: 6,
+    marginTop: 15,
     alignItems: 'center',
     justifyContent: 'flex-start'
   },
   emailStyle: {
+    marginLeft: 5,
     color: 'white',
-    fontSize: 24,
+    fontSize: 18,
     fontFamily: 'Comfortaa-Regular',
   },
   matchesList: {

@@ -17,7 +17,7 @@ class Home extends Component {
     profiles: [],
     user: this.props.user,
     likedUsers: [],
-    matchedUsers: []
+    matchedUser: null
   }
 
 
@@ -49,11 +49,12 @@ class Home extends Component {
   getName = async (id) => {
     let response = await fetch (`https://graph.facebook.com/${id}?&access_token=553125241723031|cekDbkq9I_zrD1unFrgLYiV8A0I`)
     let data = await response.json()
-    let name = data.name.toString()
-    matchedUsers.push(name)
-    this.setState({matchedUsers})
+    let name = data.name.toString().split(' ')
+    this.setState({matchedUser: name[0]})
+    console.log('matchedUser State: ', this.state.matchedUser);
     return name
   }
+
 
   nextCard = (swipedRight, profileUid) => {
 
@@ -106,10 +107,8 @@ class Home extends Component {
 
       screens= {[
         <Profile  signOut= {this.logout} signedInUser= {this.props.user}/>,
-        this.cardStack(),
-
-        <Matches matchedUsers= {this.state.matchedUsers} profiles= {this.state.profiles} matches= {this.state.likedUsers}/>
-
+        <Matches matchedUser= {this.state.matchedUser} profiles= {this.state.profiles} likedUsers= {this.state.likedUsers}/>,
+        this.cardStack()
       ]}
     />
     )
