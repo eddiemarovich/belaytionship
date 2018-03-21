@@ -4,6 +4,7 @@ import * as firebase from 'firebase'
 import RouterComponent from '../Router'
 import  { Home, Login } from './views/index.js'
 
+console.disableYellowBox = true;
 
 const firebaseConfig = {
   apiKey: "AIzaSyA8S2JPfKIGhxV0iQBQdZcTcovOdiyRZK0",

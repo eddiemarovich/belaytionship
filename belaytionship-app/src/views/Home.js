@@ -83,7 +83,7 @@ class Home extends Component {
       <View>
         <Background />
         <Modal
-          animationType= 'slide'
+          animationType= 'fade'
           transparent= {false}
           visible= {this.state.modalVisible}>
           <Background />

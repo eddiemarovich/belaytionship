@@ -89,9 +89,7 @@ class Login extends Component {
 const styles = StyleSheet.create({
   containerStyle: {
     flex: 1,
-    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   imagestyles: {
     position: 'absolute'
@@ -101,7 +99,7 @@ const styles = StyleSheet.create({
     fontSize: 56,
     fontFamily: 'Pacifico-Regular',
     transform: [{ rotate: '355 deg'}],
-    marginBottom: 20,
+    marginTop: 10,
     textShadowColor: 'black',
     textShadowOffset: {width: 2, height: 2},
     textShadowRadius: .5
