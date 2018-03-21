@@ -10,14 +10,19 @@ class Profile extends Component {
     super(props)
     this.state= {
       user: {},
-      textInput: ''
+      textInput: '',
+      personalInfo: 'Looking for committed climbing partners!'
     }
   }
 
   componentWillMount(){
     this.setState({user: this.props.signedInUser, matches: this.props.matches}, () => {
-      console.log(this.state)
+      console.log('this.state', this.state.user)
     })
+  }
+
+  updateBio = () => {
+    this.setState({personalInfo: this.state.textInput})
   }
 
 
@@ -30,21 +35,27 @@ class Profile extends Component {
         <Background />
         <Text style= {styles.profileTitleStyle}>Your Profile</Text>
         <View style = {styles.profileContainer}>
-          <Text style = {styles.nameStyle}>{this.state.user.first_name}</Text>
+          <Text style = {styles.nameStyle}>{this.state.user.Name}</Text>
           <Image source={{uri: userFbPic}} style= {styles.pictureStyle} />
+          <Text style = {styles.nameStyle}>Bio</Text>
+          <View style= {styles.bio}>
+            <Text style= {{margin: 3, fontFamily: 'Comfortaa-Regular', fontSize: 22, color: 'white', }}>
+              {this.state.personalInfo}
+            </Text>
+          </View>
           <View style= {{alignItems: 'center'}}>
             <TextInput
               style= {styles.textInput}
               editable= {true}
-              placeholder= 'Personal beta...'
+              placeholder= 'Update Info... (80 character   max)'
               placeholderTextColor= '#808080'
               multiline= {true}
-              maxLength= {40}
+              maxLength= {80}
               onChangeText= {(text) => {this.setState({textInput: text})}}
             />
 
           </View>
-          <SubmitButton style= {{marginTop: 55}} />
+          <SubmitButton updateBio= {this.updateBio} style= {{marginTop: 55}} />
         </View>
       </View>
     )
@@ -52,6 +63,13 @@ class Profile extends Component {
 }
 
 const styles = {
+  bio: {
+    width: 300,
+    height: 80,
+    borderRadius: 10,
+    marginTop: 10,
+    backgroundColor: '#3087BD',
+  },
   viewContainer: {
     flex: 1,
     alignItems: 'center',
@@ -62,15 +80,16 @@ const styles = {
   },
   textInput: {
     color: 'black',
+    opacity: .7,
     marginTop: 20,
-    height: 120,
+    height: 80,
     width: 300,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 10,
     backgroundColor: 'white',
     fontFamily: 'Comfortaa-Regular',
-    fontSize: 28,
+    fontSize: 22,
     flexWrap: 'wrap',
   },
   profileTitleStyle: {

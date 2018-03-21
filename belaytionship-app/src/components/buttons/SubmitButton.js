@@ -2,11 +2,14 @@ import React, { Component, } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 class SubmitButton extends Component {
+  constructor(props){
+    super(props)
+  }
   render () {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress= {this.props.updateBio}>
         <View style= {styles.buttonStyle}>
-          <Text style= {styles.textStyle}>Update Bio</Text>
+          <Text style= {styles.textStyle}>Submit</Text>
         </View>
       </TouchableOpacity>
     )

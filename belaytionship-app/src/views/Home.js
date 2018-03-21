@@ -1,6 +1,6 @@
 import Expo from 'expo'
 import React, {Component} from 'react'
-import {View, Text, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet, Modal, ImageBackground, TouchableOpacity } from 'react-native'
 import { Profile, Matches } from './'
 import { Background, Scroll, Card, } from '../components'
 import { CardStackNavbar } from '../components/navbars'
@@ -10,14 +10,17 @@ const likedUsers = []
 const matchedUsers = []
 
 class Home extends Component {
-
+  constructor(props){
+    super(props)
+  }
 
   state = {
     profileIndex: 0,
     profiles: [],
     user: this.props.user,
     likedUsers: [],
-    matchedUser: null
+    matchedUser: null,
+    modalVisible: false,
   }
 
 
@@ -31,8 +34,10 @@ class Home extends Component {
       })
       this.setState({profiles})
     })
-    console.log(this.state.profiles)
+    console.log('this.state.profile', this.state.profiles)
   }
+
+
 
   getUser = () => {
     return firebase.database().ref('users').child(uid).once('value')
@@ -65,7 +70,7 @@ class Home extends Component {
       likedUsers.push(profileUid)
       this.setState({likedUsers})
       this.getName(profileUid)
-
+      this.setState({modalVisible: true})
     }else{
       this.relate(userUid, profileUid, false)
     }
@@ -77,7 +82,57 @@ class Home extends Component {
     return (
       <View>
         <Background />
-          <Text style= {{
+        <Modal
+          animationType= 'slide'
+          transparent= {false}
+          visible= {this.state.modalVisible}>
+          <Background />
+          <View style= {{alignItems: 'center', }}>
+            <Text style= {{
+                color: 'white',
+                fontSize: 56,
+                fontFamily: 'Pacifico-Regular',
+                transform: [{ rotate: '355 deg'}],
+                marginTop: 20,
+                textShadowColor: 'black',
+                textShadowOffset: {width: 2, height: 2},
+                textShadowRadius: .5}}>Belaytionship</Text>
+            <View style= {{
+                width: 300,
+                height: 90,
+                alignItems: 'center',
+                marginTop: 50
+                }}>
+              <Text style= {{
+                  fontFamily: 'Comfortaa-Regular',
+                  color: 'white',
+                  fontSize: 36,
+                  fontWeight: 'bold'}}>Congratultions! You found a new climbing partner</Text>
+              <TouchableOpacity
+                onPress= {() => this.setState({modalVisible: false})}>
+                <View style= {{
+                  backgroundColor: '#3087BD',
+                  height: 50,
+                  width: 250,
+                  marginTop: 60,
+                  borderRadius: 20,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderColor: 'white',
+                  borderWidth: 1,
+                }}>
+                  <Text style= {{
+                    fontFamily: 'Comfortaa-Regular',
+                    color: 'white',
+                    fontSize: 22 }}>Close</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+
+          </View>
+        </Modal>
+
+        <Text style= {{
             color: 'white',
             fontSize: 56,
             fontFamily: 'Pacifico-Regular',
@@ -104,8 +159,7 @@ class Home extends Component {
   render() {
     return (
       <Scroll
-
-      screens= {[
+       screens= {[
         <Profile  signOut= {this.logout} signedInUser= {this.props.user}/>,
         <Matches matchedUser= {this.state.matchedUser} profiles= {this.state.profiles} likedUsers= {this.state.likedUsers}/>,
         this.cardStack()
@@ -120,13 +174,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#41B6FF',
     alignItems: 'center',
   },
-  titleStyle: {
-    color: 'white',
-    fontSize: 56,
-    fontFamily: 'Pacifico-Regular',
-    transform: [{ rotate: '355 deg'}],
-    marginTop: 20,
-  }
 })
 
 

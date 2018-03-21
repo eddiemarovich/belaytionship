@@ -34,7 +34,7 @@ class Card extends Component {
     }
 
     render() {
-      const { birthday, name, bio, id } = this.props.profile
+      const { birthday, name, bio, id, email } = this.props.profile
       const fbImage = `https://graph.facebook.com/${this.props.profile.id}/picture?height=500`
 
       const rotateCard = this.pan.x.interpolate({
