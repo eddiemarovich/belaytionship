@@ -21,7 +21,7 @@ class Login extends Component {
 
 
   async componentDidMount() {
-    // await firebase.auth().signOut()
+    await firebase.auth().signOut()
     let signedInUser = {}
     await firebase.auth().onAuthStateChanged(auth => {
       if (auth) {
