@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import {  StyleSheet, View, Image, Text, PanResponder, Animated, Dimensions } from 'react-native'
 
-const fbImage = 'https://graph.facebook.com/1081200058/picture?height=500'
 const { width, height } = Dimensions.get('window')
 
 class Card extends Component {
+
   componentWillMount() {
       this.pan = new Animated.ValueXY()
 
@@ -14,16 +14,29 @@ class Card extends Component {
           null,
           {dx:this.pan.x, dy:this.pan.y},
         ]),
-        onPanResponderRelease: () => {
+        onPanResponderRelease: (e, {dx}) => {
+          const absDx = Math.abs(dx)
+          const direction = absDx/dx
+          const swipedRight = direction > 0
+          if (absDx > 160){
+            Animated.decay(this.pan, {
+              velocity: {x: 3 * direction, y: 0},
+              deceleration: 0.995,
+            }).start(() => this.props.onSwipeOff(swipedRight, this.props.profile.id))
+          }else{
           Animated.spring(this.pan, {
             toValue: {x: 0, y: 0},
             friction: 4.5,
           }).start()
+        }
        },
       })
     }
 
     render() {
+      const { birthday, name, bio, id, email } = this.props.profile
+      const fbImage = `https://graph.facebook.com/${this.props.profile.id}/picture?height=500`
+
       const rotateCard = this.pan.x.interpolate({
         inputRange: [-100, 0, 100],
         outputRange: ['-5deg', '0deg', '5deg']
@@ -46,8 +59,8 @@ class Card extends Component {
             source={{uri: fbImage}}
           />
           <View style={{margin:20}}>
-            <Text style={{fontSize:20}}>Eddie, 26</Text>
-            <Text style={{fontSize:15, color:'darkgrey'}}>Sport climber</Text>
+            <Text style={{fontSize:20}}>{name}</Text>
+            <Text style={{fontSize:15, color:'darkgrey'}}>{bio}</Text>
           </View>
         </Animated.View>
       )
@@ -63,10 +76,11 @@ class Card extends Component {
       overflow: 'hidden',
       backgroundColor: 'white',
       margin: 10,
+      marginTop: 30,
       borderWidth: 1,
       borderColor: 'lightgrey',
       borderRadius: 8,
     },
   })
 
-  export default Card
+  export  { Card }
