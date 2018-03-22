@@ -22,9 +22,7 @@ $ exp start
 ## Navigating the Site
 
 Login Using Facebook authentication
-![Login](belaytionship-app/assets/images/screenshots/Login.png)
 
-![Login](belaytionship-app/assets/images/screenshots/swipeleft.png) 
 
 
 You will be routed to "Your Profile" where you have the ability to update your Bio.  This is the information other users will be able to look at to decide if they would like to try to match with you.
@@ -32,6 +30,9 @@ You will be routed to "Your Profile" where you have the ability to update your B
 Scroll over to the right to view your matches.  When matched with someone, you have access to their email address, and connect with them via email.
 
 Scroll to the right again to find the "Other Climbers" page.  Here is where you can swipe through the stack of users and swipe left to decline, or right to accept.  When matched with a user, a screen will pop up notifying you that you have a new match.
+![Login](belaytionship-app/assets/images/screenshots/swipeleft.png)  ![Login](belaytionship-app/assets/images/screenshots/swipeRight.png)
+
+
 
 
 
