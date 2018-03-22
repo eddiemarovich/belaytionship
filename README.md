@@ -31,7 +31,6 @@ Scroll over to the right to view your matches.  When matched with someone, you h
 
 Scroll to the right again to find the "Other Climbers" page.  Here is where you can swipe through the stack of users and swipe left to decline, or right to accept.  When matched with a user, a screen will pop up notifying you that you have a new match.
 
-![SwipeLeft](belaytionship-app/assets/images/screenshots/swipeleft.png)
 
 
 
