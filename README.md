@@ -22,7 +22,7 @@ $ exp start
 ## Navigating the Site
 
 Login Using Facebook authentication
-! [Login] (belaytionship-app/assets/images/Login.png)
+![Login](belaytionship-app/assets/images/Login.png)
 
 
 You will be routed to "Your Profile" where you have the ability to update your Bio.  This is the information other users will be able to look at to decide if they would like to try to match with you.
