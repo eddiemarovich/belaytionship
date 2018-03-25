@@ -19,7 +19,7 @@ $ exp start
 4. Install the x code simulator from the app store to run the simulator through Expo.
 
 
-## Navigating the Site
+## Navigating the App
 
 Login Using Facebook authentication
 
