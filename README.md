@@ -7,13 +7,17 @@ Belaytionship is a React Native application that allows users to sign up using t
 Prerequisites: NodeJS
 
 1. Clone the GitHub repository.
+
 $ git clone https://github.com/eddiemarovich/belaytionship.git
 
 2. Install dependencies.
+
 $ npm install
 
 3. Install the Expo Desktop app: https://docs.expo.io/versions/latest/introduction/installation.html
+
 $ cd belaytionship-app
+
 $ exp start
 
 4. Install the x code simulator from the app store to run the simulator through Expo.
@@ -22,9 +26,10 @@ $ exp start
 ## Navigating the App
 
 Login Using Facebook authentication
-![Login](belaytionship-app/assets/images/screenshots/Login.png)
 
-
+<img src="belaytionship-app/assets/images/screenshots/Login.png" height="380" >
+<img src="belaytionship-app/assets/images/screenshots/loginInfo.png" height="380" >
+<img src="belaytionship-app/assets/images/screenshots/loginInfo.png" height="380" >
 
 You will be routed to "Your Profile" where you have the ability to update your Bio.  This is the information other users will be able to look at to decide if they would like to try to match with you.
 
